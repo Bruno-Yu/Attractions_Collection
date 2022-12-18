@@ -1,0 +1,29 @@
+{
+  "name": "vite-vue-bs-template",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
+  },
+  "dependencies": {
+    "@popperjs/core": "^2.11.6",
+    "axios": "^1.1.3",
+    "bootstrap": "^5.2.2",
+    "vue": "^3.2.41",
+    "vue-axios": "^3.5.0",
+    "vue-router": "^4.1.5",
+    "vuex": "^4.0.2"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^3.1.2",
+    "eslint": "^8.30.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-import-resolver-alias": "^1.1.2",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-vue": "^9.8.0",
+    "sass": "^1.55.0",
+    "vite": "^3.1.8"
+  }
+}
