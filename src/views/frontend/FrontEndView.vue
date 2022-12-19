@@ -39,7 +39,6 @@
 
   </nav>
   <main class="container-xl mx-auto">
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
     <RouterView />
   </main>
   <footer>

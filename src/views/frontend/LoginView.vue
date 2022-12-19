@@ -1,4 +1,5 @@
 <template>
+    <LoadingView :active="loading" backgroundColor="#000" color="#fff" />
   <div>
     <div class="row">
       <div class="col">
@@ -38,6 +39,7 @@ export default {
     return {
       account: '',
       password: '',
+      loading: false,
     };
   },
   computed: {
@@ -48,6 +50,7 @@ export default {
       'getToken']),
     ...mapActions('user', ['getAsyncToken', 'loginStatus', 'adminStatus', 'loginNameSetting', 'getUserIdSetting']),
     async loginMember() {
+      this.loading = true;
       const params = {
         email: this.account,
         password: this.password,
@@ -59,8 +62,10 @@ export default {
         this.adminStatus(res.user);
         this.getUserIdSetting(res.user.id);
         this.loginNameSetting(res.user.nickName);
+        this.loading = false;
         this.$refs.modal.openModal('登入成功');
       } else {
+        this.loading = false;
         this.$refs.modal.openModal('登入失敗');
       }
     },

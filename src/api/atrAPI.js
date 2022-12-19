@@ -40,6 +40,34 @@ class atrApi extends Api {
     return res;
   }
 
+  // 編輯單一景點
+  static async editAttraction(id, {
+    name, description, image, address, GoogleRate,
+  }) {
+    const params = {
+      id, name, description, image, address, GoogleRate,
+    };
+    const res = await this.callAxios('PATCH', `${apiPrefix}attractions/${id}`, params, undefined, true);
+    return res;
+  }
+
+  // 刪除單一景點
+  static async deleteAttraction(id) {
+    const res = await this.callAxios('DELETE', `${apiPrefix}attractions/${id}`, null, undefined, true);
+    return res;
+  }
+
+  // 新增單一景點
+  static async addAttraction({
+    name, description, image, address, GoogleRate,
+  }) {
+    const params = {
+      name, description, image, address, GoogleRate,
+    };
+    const res = await this.callAxios('POST', `${apiPrefix}attractions`, params, undefined, true);
+    return res;
+  }
+
   //  取得蒐藏
   static async getCollections(id) {
     const res = await this.callAxios('GET', `${apiPrefix}users/${id}/collections`, null, undefined, false);

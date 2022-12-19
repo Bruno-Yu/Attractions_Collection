@@ -1,4 +1,5 @@
 <template>
+    <LoadingView :active="loading" backgroundColor="#000" color="#fff" />
   <div>
     <h2>景點列表</h2>
     <div class="container text-center">
@@ -57,6 +58,7 @@ export default {
     return {
       attractions: [],
       collections: [],
+      loading: false,
     };
   },
   computed: {
@@ -65,14 +67,18 @@ export default {
   methods: {
     ...mapActions('user', ['getCollectionIdSetting']),
     async getAttractions() {
+      this.loading = true;
       this.attractions = await atrApi.getAttractions();
+      this.loading = false;
     },
     async getCollections() {
       if (this.userId) {
+        this.loading = true;
         const res = await atrApi.getCollections(this.userId);
         this.collections = [...res[0].attractionId];
         this.getCollectionIdSetting(res[0].id);
         // console.log(res);
+        this.loading = false;
       }
     },
     async editCollections() {
@@ -80,8 +86,10 @@ export default {
         const params = {
           attractionId: this.collections,
         };
+        this.loading = true;
         await atrApi.editCollections(this.collectionId, params);
         // console.log('編輯結果', res);
+        this.loading = false;
       }
     },
     editCollectionsBtn(id) {

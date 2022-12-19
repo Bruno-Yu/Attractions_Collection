@@ -1,4 +1,5 @@
 <template>
+      <LoadingView :active="loading" backgroundColor="#000" color="#fff" />
   <div>
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
@@ -37,6 +38,7 @@ export default {
       id: '',
       data: {},
       collections: [],
+      loading: false,
     };
   },
   computed: {
@@ -45,22 +47,27 @@ export default {
   methods: {
     ...mapActions('user', ['getCollectionIdSetting']),
     async getAttraction(id) {
+      this.loading = true;
       this.data = await atrApi.getAttraction(id);
     },
     async getCollections() {
       if (this.userId) {
+        this.loading = true;
         const res = await atrApi.getCollections(this.userId);
         this.collections = [...res[0].attractionId];
         this.getCollectionIdSetting(res[0].id);
+        this.loading = false;
         // console.log(res);
       }
     },
     async editCollections() {
       if (this.userId) {
+        this.loading = true;
         const params = {
           attractionId: this.collections,
         };
         await atrApi.editCollections(this.collectionId, params);
+        this.loading = false;
         // console.log('編輯結果', res);
       }
     },
