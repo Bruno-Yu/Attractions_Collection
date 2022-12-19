@@ -1,5 +1,5 @@
 <template>
-    <LoadingView :active="loading" backgroundColor="#000" color="#fff" />
+  <LoadingView :active="loading" backgroundColor="#000" color="#fff" />
   <div>
     <h2>景點列表</h2>
     <div class="container text-center">
@@ -63,6 +63,9 @@ export default {
   },
   computed: {
     ...mapState('user', ['login', 'userId', 'collectionId']),
+    collectAttractions() {
+      return this.attractions.map((place) => !this.collections.includes(place.id));
+    },
   },
   methods: {
     ...mapActions('user', ['getCollectionIdSetting']),
@@ -98,7 +101,7 @@ export default {
         this.editCollections();
         this.getCollections();
       } else {
-        this.collections.push(id);
+        this.collections = [...this.collections.push(id)];
         this.editCollections();
         this.getCollections();
       }

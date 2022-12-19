@@ -21,8 +21,9 @@
           <li v-if="login" class="nav-item">
             <RouterLink to="/member/content" class="nav-link">Hello! {{ name }}</RouterLink>
           </li>
-          <li v-if="login" class="nav-item">
-            <RouterLink to="/member/collections" class="nav-link">收藏</RouterLink>
+          <li v-if="true" class="nav-item">
+            <button type="button" href="#" class="nav-link" data-bs-toggle="offcanvas" data-bs-target="#collections"
+              aria-controls="offcanvasRight">收藏</button>
           </li>
           <li v-else class="nav-item">
             <RouterLink to="login" class="nav-link">登入</RouterLink>
@@ -46,15 +47,40 @@
       台南吃透透 @copyRight
     </p>
   </footer>
-  <!-- modal -->
+  <!-- offcanavs -->
+  <!-- <div class="offcanvas offcanvas-end" tabindex="-1" id="collections" aria-labelledby="collectionsLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="collectionsLabel">吃貨收藏清單</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <template v-if="false">
+      <div>
+        <div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+    <div class="d-flex justify-content-end">
+      <a href="#" class="btn btn-outline-success me-3">查看細節</a>
+      <a href="#" class="btn btn-success">加入收藏</a>
+    </div>
+  </div>
+</div>
+      </div>
+    </template>
+    <p v-else>  目前尚無蒐藏喔! </p>
+  </div>
+</div> -->
+  <CollectionsCanvas />
 </template>
 
 <script >
 // import { RouterView, RouterLink } from 'vue-router';
 import { mapState } from 'vuex';
+import CollectionsCanvas from '@/components/collectionsCanvas.vue';
 
 export default {
-  // components: { RouterView, RouterLink },
+  components: { CollectionsCanvas },
   computed: {
     ...mapState('user', ['login', 'admin', 'name']),
   },

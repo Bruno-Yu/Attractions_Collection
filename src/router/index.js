@@ -34,10 +34,6 @@ const router = createRouter({
           component: () => import('../views/frontend/LoginView.vue'),
         },
         {
-          path: '/member/collections',
-          component: () => import('../views/frontend/CollectionsView.vue'),
-        },
-        {
           path: '/member/content',
           component: () => import('../views/frontend/LoginView.vue'),
         },
