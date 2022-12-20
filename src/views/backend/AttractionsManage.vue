@@ -52,7 +52,7 @@
     <p class="text-center" v-else> 目前尚無資料 </p>
   </div>
   <EditModal :place="chosenPlace" :isNew="isNew" ref="modal" @update-place="updatePlace" />
-  <informModal ref="infoModal" @confirm="confirmDelete" />
+  <informModal ref="infoModal" @confirm="confirmAction" />
 </template>
 
 <script>
@@ -113,9 +113,17 @@ export default {
       const { name } = this.chosenPlace;
       this.$refs.infoModal.openModal(`確認要刪除${name}這筆資料`, '刪除確認提示', ['confirm']);
     },
+    confirmAction() {
+      if (this.deleteStatus) {
+        this.confirmDelete();
+      } else {
+        this.hideInfoModal();
+      }
+    },
     confirmDelete() {
       const { id } = this.chosenPlace;
       this.deleteAttraction(id);
+      this.hideInfoModal();
     },
     hideInfoModal() {
       this.deleteStatus = false;
@@ -130,10 +138,10 @@ export default {
       if (!this.isNew) {
         const { id } = temPlace;
         this.editAttraction(id, temPlace);
-        // this.$refs.infoModal.openModal('編輯成功', '提示', ['confirm']);
+        this.$refs.infoModal.openModal('編輯成功', '提示', ['confirm']);
       } else {
         this.addAttraction(temPlace);
-        // this.$refs.infoModal.openModal('新增成功', '提示', ['confirm']);
+        this.$refs.infoModal.openModal('新增成功', '提示', ['confirm']);
       }
     },
   },
