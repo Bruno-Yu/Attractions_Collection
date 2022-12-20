@@ -5,7 +5,7 @@
     <div class="container text-center">
       <div class="row row-cols-1 row-cols-lg-2 g-2 g-lg-3">
         <template v-if="attractions.length">
-          <div v-for="(place, index) in attractions" :key="index" class="col">
+          <div v-for="(place) in attractions" :key="place.id" class="col">
             <div class="p-3 border bg-light">
               <!-- card -->
               <div class="card mb-3" style="max-width: 540px;">
@@ -47,65 +47,74 @@
       </div>
     </div>
   </div>
+  <!-- <CollectionsCanvas /> -->
 </template>
 
 <script>
+// import CollectionsCanvas from '@/components/collectionsCanvas.vue';
 import { mapState, mapActions } from 'vuex';
-import atrApi from '@/api/atrAPI';
+// import atrApi from '@/api/atrAPI';
 
 export default {
+  // components: { CollectionsCanvas },
   data() {
     return {
-      attractions: [],
-      collections: [],
-      loading: false,
+      // attractions: [],
+      // collections: [],
+      // loading: false,
     };
   },
   computed: {
-    ...mapState('user', ['login', 'userId', 'collectionId']),
-    collectAttractions() {
-      return this.attractions.map((place) => !this.collections.includes(place.id));
-    },
+    ...mapState('user', ['login', 'attractions', 'collections']),
+    // ...mapGetters('user', ['collections']),
+    // collectAttractions() {
+    //   return this.attractions.map((place) => !this.collections.includes(place.id));
+    // },
   },
   methods: {
-    ...mapActions('user', ['getCollectionIdSetting']),
-    async getAttractions() {
-      this.loading = true;
-      this.attractions = await atrApi.getAttractions();
-      this.loading = false;
-    },
-    async getCollections() {
-      if (this.userId) {
-        this.loading = true;
-        const res = await atrApi.getCollections(this.userId);
-        this.collections = [...res[0].attractionId];
-        this.getCollectionIdSetting(res[0].id);
-        // console.log(res);
-        this.loading = false;
-      }
-    },
-    async editCollections() {
-      if (this.userId) {
-        const params = {
-          attractionId: this.collections,
-        };
-        this.loading = true;
-        await atrApi.editCollections(this.collectionId, params);
-        // console.log('編輯結果', res);
-        this.loading = false;
-      }
-    },
-    editCollectionsBtn(id) {
-      if (this.collections.includes(id)) {
-        this.collections = [...this.collections.filter((item) => item !== id)];
-        this.editCollections();
-        this.getCollections();
-      } else {
-        this.collections = [...this.collections.push(id)];
-        this.editCollections();
-        this.getCollections();
-      }
-    },
+    ...mapActions('user', ['getAttractions', 'getCollections', 'editCollectionsBtn']),
+    // async getAttractions() {
+    //   this.loading = true;
+    //   this.attractions = await atrApi.getAttractions();
+    //   this.loading = false;
+    // },
+    // async getCollections() {
+    //   if (this.userId) {
+    //     this.loading = true;
+    //     const res = await atrApi.getCollections(this.userId);
+    //     if (res.length > 0) {
+    //       console.log(res);
+    //       this.collections = [...res[0].attractionId];
+    //       console.log(res[0].id);
+    //       this.getCollectionIdSetting(res[0].id);
+    //     }
+    //     // console.log(res);
+    //     console.log(this.collections);
+    //     this.loading = false;
+    //   }
+    // },
+    // async editCollections() {
+    //   if (this.userId) {
+    //     const params = {
+    //       attractionId: this.collections,
+    //     };
+    //     this.loading = true;
+    //     await atrApi.editCollections(this.collectionId, params);
+    //     // console.log('編輯結果', res);
+    //     this.loading = false;
+    //   }
+    // },
+    // editCollectionsBtn(id) {
+    //   if (this.collections.includes(id)) {
+    //     this.collections = [...this.collections.filter((item) => item !== id)];
+    //     this.editCollections();
+    //     this.getCollections();
+    //   } else {
+    //     this.collections.push(id);
+    //     this.editCollections();
+    //     this.getCollections();
+    //   }
+    // },
     sliceWords(str, num) {
       if (str.length > num) {
         return `${str.slice(0, num)}...`;
@@ -113,10 +122,15 @@ export default {
       return `${str}...`;
     },
   },
-  mounted() {
+  // updated() {
+  //   this.getAttractions();
+  //   this.getCollections();
+  // },
+  created() {
+    // this.getAttractions();
     this.getAttractions();
     this.getCollections();
-    console.log(this.$store.state.user.token);
+    // console.log(this.$store.state.user.token);
   },
 };
 

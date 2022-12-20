@@ -38,7 +38,6 @@
 <script>
 import atrApi from '@/api/atrAPI';
 import InformModal from '@/components/informModal.vue';
-// import { mapState, mapMutations, mapActions } from 'vuex';
 
 export default {
   components: { InformModal },
@@ -51,9 +50,6 @@ export default {
     };
   },
   methods: {
-    // ...mapMutations('user', [
-    //   'getToken']),
-    // ...mapActions('user', ['getAsyncToken', 'loginStatus']),
     async signUp() {
       const params = {
         email: this.account,
@@ -62,23 +58,14 @@ export default {
         roleId: this.admin ? 1 : 2,
       };
       const res = await atrApi.signUp(params);
-      // console.log(res);
       if (res?.accessToken) {
         this.signUpResult = true;
+        const { id } = res.user;
+        await atrApi.signAddCollection({ userId: id });
         this.$refs.modal.openModal('註冊成功，請重新登入!');
       } else {
         this.$refs.modal.openModal('註冊失敗');
       }
-      // if (res.response.status === '201') {
-      //   this.$router.push('/login'); // 設定這沒用
-      // }
-      // if (res.response.status === 400) {
-      //   console.log(res.data);
-      // } else {
-      //   this.$router.push('/login');
-      // }
-      // this.getAsyncToken(res.accessToken);
-      // this.loginStatus();
     },
     confirm() {
       if (this.signUpResult) {

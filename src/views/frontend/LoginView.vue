@@ -1,5 +1,5 @@
 <template>
-    <LoadingView :active="loading" backgroundColor="#000" color="#fff" />
+
   <div>
     <div class="row">
       <div class="col">
@@ -13,7 +13,7 @@
             <label for="user">帳號</label>
             <input type="text" class="form-control form-control-sm" id="user" v-model="account" placeholder="請輸入帳號" />
             <label for="pass">密碼</label>
-            <input type="text" class="form-control form-control-sm" id="password" v-model="password"
+            <input type="password" class="form-control form-control-sm" id="password" v-model="password"
               placeholder="請輸入密碼" />
           </div>
           <div class="card-footer">
@@ -43,12 +43,12 @@ export default {
     };
   },
   computed: {
-    ...mapState('user', ['token', 'name', 'login']),
+    ...mapState('user', ['token', 'name', 'login', 'userId', 'collectionId']),
   },
   methods: {
     ...mapMutations('user', [
       'getToken']),
-    ...mapActions('user', ['getAsyncToken', 'loginStatus', 'adminStatus', 'loginNameSetting', 'getUserIdSetting']),
+    ...mapActions('user', ['getAsyncToken', 'loginStatus', 'adminStatus', 'loginNameSetting', 'getUserIdSetting', 'getCollectionId']),
     async loginMember() {
       this.loading = true;
       const params = {
@@ -62,6 +62,7 @@ export default {
         this.adminStatus(res.user);
         this.getUserIdSetting(res.user.id);
         this.loginNameSetting(res.user.nickName);
+        this.getCollectionId();
         this.loading = false;
         this.$refs.modal.openModal('登入成功');
       } else {
@@ -77,10 +78,6 @@ export default {
         this.$refs.modal.hideModal();
       }
     },
-  },
-  mounted() {
-    console.log(this.name);
-    // 新建立一個element
   },
 };
 

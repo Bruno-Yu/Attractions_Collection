@@ -61,6 +61,7 @@ export default {
       this.title = '';
       this.footerBtnArray = ['confirm'];
       this.modal.hide();
+      // this.$emit('cancel');
     },
     usedBtn(btn) {
       return this.footerBtnArray.includes(btn);

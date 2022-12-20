@@ -1,7 +1,7 @@
 import Api from '@/assets/js/api';
 // import qs from 'qs';
 
-const apiPrefix = import.meta.env.VITE_LOCAL_API;
+const apiPrefix = import.meta.env.VITE_APP_API;
 
 // Api 自 Api 繼承所有屬性與方法
 class atrApi extends Api {
@@ -13,6 +13,18 @@ class atrApi extends Api {
       email, password, nickName, roleId,
     };
     const res = await this.callAxios('POST', `${apiPrefix}signup`, params, undefined, false);
+    return res;
+  }
+
+  // 註冊新增 collections 欄
+  static async signAddCollection({
+    userId,
+  }) {
+    const params = {
+      userId,
+      attractionId: [],
+    };
+    const res = await this.callAxios('POST', `${apiPrefix}collections`, params, undefined, false);
     return res;
   }
 
@@ -68,9 +80,15 @@ class atrApi extends Api {
     return res;
   }
 
-  //  取得蒐藏
-  static async getCollections(id) {
+  //  取得蒐藏 Id
+  static async getCollectionId(id) {
     const res = await this.callAxios('GET', `${apiPrefix}users/${id}/collections`, null, undefined, false);
+    return res;
+  }
+
+  // 取得蒐藏
+  static async getCollections(id) {
+    const res = await this.callAxios('GET', `${apiPrefix}collections/${id}`, null, undefined, false);
     return res;
   }
 

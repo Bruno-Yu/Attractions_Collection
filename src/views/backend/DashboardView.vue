@@ -14,9 +14,6 @@
           <li v-if="login" class="nav-item">
             <RouterLink to="/" class="nav-link">登出</RouterLink>
           </li>
-          <li v-else class="nav-item">
-            <RouterLink to="/signup" class="nav-link">註冊</RouterLink>
-          </li>
         </ul>
       </div>
     </nav>
@@ -34,27 +31,14 @@
 </template>
 
 <script >
-import { RouterView, RouterLink } from 'vue-router';
+
 import { mapState } from 'vuex';
 
 export default {
-  components: { RouterView, RouterLink },
-  data() {
-    return {
-      login: true,
-      admin: true,
-      params: null,
-    };
-  },
   computed: {
     ...mapState('user', [
-      // map this.count to store.state.count
-      'name',
+      'login',
     ]),
-  },
-  mounted() {
-    // console.log(import.meta.env.VITE_APP_API);
-    this.params = import.meta.env.VITE_APP_API;
   },
 
 };
