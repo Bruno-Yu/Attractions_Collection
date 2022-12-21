@@ -48,6 +48,10 @@ export default {
     this.id = this.$route.params.id;
     this.getAttraction(this.id);
   },
+  beforeRouteUpdate(to, from, next) {
+    this.getAttraction(to.params.id);
+    next();
+  },
 
 };
 

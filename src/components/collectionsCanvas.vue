@@ -16,7 +16,8 @@
                 <p class="card-text">評價 {{ place.GoogleRate }}</p>
                 <div class="d-flex justify-content-end">
                   <a href="#" class="btn btn-outline-primary me-3"
-                    @click.prevent="$router.push(`/attractions/${place.id}`)" data-bs-dismiss="offcanvas">查看細節</a>
+                    @click.prevent="$router.push({ path: `/attractions/${place.id}` })"
+                    data-bs-dismiss="offcanvas">查看細節</a>
                   <a href="#" class="btn btn-danger" @click.prevent="editCollectionsBtn(place.id)">取消收藏</a>
                 </div>
               </div>

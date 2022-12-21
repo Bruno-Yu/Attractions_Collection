@@ -2,6 +2,7 @@ import Api from '@/assets/js/api';
 // import qs from 'qs';
 
 const apiPrefix = import.meta.env.VITE_APP_API;
+// const apiPrefix = import.meta.env.VITE_LOCAL_API;
 
 // Api 自 Api 繼承所有屬性與方法
 class atrApi extends Api {
